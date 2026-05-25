@@ -1,0 +1,50 @@
+<Page
+    x:Class="GetGUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="22" MaxWidth="760" HorizontalAlignment="Left">
+            <StackPanel Spacing="4">
+                <TextBlock Text="Parametres" FontSize="30" FontWeight="SemiBold" />
+                <TextBlock Text="Les preferences sont stockees localement." Opacity="0.72" />
+            </StackPanel>
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="Theme" FontSize="16" FontWeight="SemiBold" />
+                <ComboBox x:Name="ThemeBox" Width="260" SelectionChanged="ThemeBox_SelectionChanged">
+                    <ComboBoxItem Content="Systeme" Tag="Default" />
+                    <ComboBoxItem Content="Clair" Tag="Light" />
+                    <ComboBoxItem Content="Sombre" Tag="Dark" />
+                </ComboBox>
+            </StackPanel>
+
+            <ToggleSwitch
+                Header="Installation silencieuse"
+                OffContent="winget install sans --silent"
+                OnContent="winget install --silent"
+                IsOn="{x:Bind ViewModel.Settings.SilentInstall, Mode=TwoWay}"
+                Toggled="Setting_Toggled" />
+
+            <ToggleSwitch
+                Header="Conserver les logs"
+                OffContent="Masquer les logs apres operations"
+                OnContent="Afficher les logs winget"
+                IsOn="{x:Bind ViewModel.Settings.KeepInstallLogs, Mode=TwoWay}"
+                Toggled="Setting_Toggled" />
+
+            <ToggleSwitch
+                Header="Vider les logs a la fermeture"
+                OffContent="Conserver la console entre les lancements"
+                OnContent="Effacer la console quand GetGUI se ferme"
+                IsOn="{x:Bind ViewModel.Settings.ClearLogsOnExit, Mode=TwoWay}"
+                Toggled="Setting_Toggled" />
+
+            <InfoBar
+                IsOpen="True"
+                Severity="Informational"
+                Title="Source des donnees"
+                Message="GetGUI interroge uniquement winget search et winget show. Aucune base applicative externe n'est utilisee." />
+        </StackPanel>
+    </ScrollViewer>
+</Page>
