@@ -4,6 +4,10 @@ A WinGet marketplace with WinUI 3 to search, explore and install apps with WinGe
 
 GetGUI is a modern WinUI 3 interface for browsing, searching, and installing apps available in the official `winget` repository, featuring a local queue, a persistent log console, and smooth Windows 11-style navigation.
 
+## Pre-compiled downloads
+
+Downloads avaible here ➡️ : https://github.com/gabdu46/GetGUI/releases
+
 ## Features
 
 - Real-time search via `winget search`
