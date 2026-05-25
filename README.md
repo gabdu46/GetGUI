@@ -6,7 +6,7 @@ GetGUI is a modern WinUI 3 interface for browsing, searching, and installing app
 
 ## Pre-compiled downloads
 
-Downloads avaible here ➡️ : https://github.com/gabdu46/GetGUI/releases
+Downloads available here ➡️ : https://github.com/gabdu46/GetGUI/releases
 
 ## Features
 
