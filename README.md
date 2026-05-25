@@ -59,9 +59,8 @@ Option available in settings:
 ## Project screenshot
 
 
-```md
-<img width="287"alt="84f6564a9497f5b4c3e1f952f7c57ca8" src="[https://github.com/user-attachments/assets/6f4e7b2a-f7d4-4a98-8469-fc8fa6f9c18d](https://github.com/gabdu46/GetGUI/blob/main/docs/screenshot.png?raw=true)" />
-```
+<img src="https://raw.githubusercontent.com/gabdu46/GetGUI/refs/heads/main/docs/screenshot.png">
+
 
 ## License
 
