@@ -65,6 +65,16 @@ Option available in settings:
 <img src="https://raw.githubusercontent.com/gabdu46/GetGUI/refs/heads/main/docs/screenshot.png">
 
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=gabdu46%2FGetGUI&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=gabdu46/GetGUI&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=gabdu46/GetGUI&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=gabdu46/GetGUI&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## License
 
 MIT License
