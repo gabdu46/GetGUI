@@ -37,8 +37,6 @@ All information comes solely from the official `winget` commands:
 - Windows 11 recommended
 - `winget` installed and accessible in the PATH
 - .NET 8 SDK
-- Visual Studio 2022 with the **.NET Desktop Development** workload
-- **Windows App SDK / WinUI 3** support 
 
 ## Project Structure
 
