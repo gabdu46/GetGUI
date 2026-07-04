@@ -1,4 +1,5 @@
 using GetGUI.Infrastructure;
+using GetGUI.Services;
 using System.Text.Json.Serialization;
 
 namespace GetGUI.Models;
@@ -106,11 +107,13 @@ public sealed class ApplicationPackage : ObservableObject
     }
 
     [JsonIgnore]
-    public string PublisherDisplay => string.IsNullOrWhiteSpace(Publisher) ? "Editeur indisponible" : Publisher;
+    public string PublisherDisplay => string.IsNullOrWhiteSpace(Publisher)
+        ? LocalizationService.Current.PublisherUnavailable
+        : Publisher;
 
     [JsonIgnore]
     public string DescriptionDisplay => string.IsNullOrWhiteSpace(Description)
-        ? "Description disponible dans la fiche detaillee winget."
+        ? LocalizationService.Current.DescriptionAvailableInDetails
         : Description;
 
     public ApplicationPackage Clone()

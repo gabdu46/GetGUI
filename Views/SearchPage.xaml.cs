@@ -12,6 +12,8 @@ public sealed partial class SearchPage : Page
 {
     private readonly DispatcherQueueTimer _searchTimer;
 
+    public LocalizationService Loc => LocalizationService.Current;
+
     public SearchPage()
     {
         ViewModel = new SearchViewModel(

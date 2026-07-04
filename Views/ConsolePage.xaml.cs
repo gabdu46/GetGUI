@@ -11,6 +11,8 @@ public sealed partial class ConsolePage : Page
 {
     private readonly DispatcherQueueTimer _refreshTimer;
 
+    public LocalizationService Loc => LocalizationService.Current;
+
     public ConsolePage()
     {
         ViewModel = new ConsoleViewModel(AppServices.Log);
@@ -45,10 +47,10 @@ public sealed partial class ConsolePage : Page
     {
         var dialog = new ContentDialog
         {
-            Title = "Effacer les logs ?",
-            Content = "La console sera videe et le fichier de logs local sera remis a zero.",
-            PrimaryButtonText = "Effacer",
-            CloseButtonText = "Annuler",
+            Title = Loc.ClearLogsTitle,
+            Content = Loc.ClearLogsContent,
+            PrimaryButtonText = Loc.Clear,
+            CloseButtonText = Loc.Cancel,
             XamlRoot = XamlRoot
         };
 

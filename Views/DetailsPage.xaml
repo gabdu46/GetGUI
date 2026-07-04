@@ -11,11 +11,11 @@
 
     <Grid Padding="32" RowDefinitions="Auto,Auto,*">
         <CommandBar DefaultLabelPosition="Right">
-            <AppBarButton Icon="Back" Label="Retour" Click="BackButton_Click" />
+            <AppBarButton Icon="Back" Label="{x:Bind Loc.Back, Mode=OneWay}" Click="BackButton_Click" />
             <AppBarSeparator />
-            <AppBarButton Icon="Download" Label="Installer" Click="InstallButton_Click" />
-            <AppBarButton Icon="Add" Label="Ajouter a la file" Click="AddToQueueButton_Click" />
-            <AppBarButton Icon="Delete" Label="Desinstaller" Click="UninstallButton_Click" />
+            <AppBarButton Icon="Download" Label="{x:Bind Loc.Install, Mode=OneWay}" Click="InstallButton_Click" />
+            <AppBarButton Icon="Add" Label="{x:Bind Loc.AddToQueue, Mode=OneWay}" Click="AddToQueueButton_Click" />
+            <AppBarButton Icon="Delete" Label="{x:Bind Loc.Uninstall, Mode=OneWay}" Click="UninstallButton_Click" />
         </CommandBar>
 
         <InfoBar
@@ -73,21 +73,21 @@
                     RowDefinitions="Auto,Auto,Auto,Auto"
                     RowSpacing="10"
                     ColumnSpacing="18">
-                    <TextBlock Text="Editeur" Opacity="0.7" />
+                    <TextBlock Text="{x:Bind Loc.Publisher, Mode=OneWay}" Opacity="0.7" />
                     <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.Application.PublisherDisplay, Mode=OneWay}" TextWrapping="WrapWholeWords" />
 
                     <TextBlock Grid.Row="1" Text="Version" Opacity="0.7" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Application.Version, Mode=OneWay}" />
 
-                    <TextBlock Grid.Row="2" Text="Licence" Opacity="0.7" />
+                    <TextBlock Grid.Row="2" Text="{x:Bind Loc.License, Mode=OneWay}" Opacity="0.7" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Application.License, Mode=OneWay}" TextWrapping="WrapWholeWords" />
 
-                    <TextBlock Grid.Row="3" Text="Page web" Opacity="0.7" />
+                    <TextBlock Grid.Row="3" Text="{x:Bind Loc.Homepage, Mode=OneWay}" Opacity="0.7" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Application.Homepage, Mode=OneWay}" TextWrapping="WrapWholeWords" />
                 </Grid>
 
                 <StackPanel Spacing="8">
-                    <TextBlock Text="Description" FontSize="18" FontWeight="SemiBold" />
+                    <TextBlock Text="{x:Bind Loc.Description, Mode=OneWay}" FontSize="18" FontWeight="SemiBold" />
                     <TextBlock
                         Text="{x:Bind ViewModel.Application.DescriptionDisplay, Mode=OneWay}"
                         TextWrapping="WrapWholeWords" />
@@ -96,7 +96,7 @@
                 <StackPanel
                     Spacing="8"
                     Visibility="{x:Bind ViewModel.HasLog, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <TextBlock Text="Logs" FontSize="18" FontWeight="SemiBold" />
+                    <TextBlock Text="{x:Bind Loc.Logs, Mode=OneWay}" FontSize="18" FontWeight="SemiBold" />
                     <TextBox
                         Text="{x:Bind ViewModel.OperationLog, Mode=OneWay}"
                         AcceptsReturn="True"

@@ -17,6 +17,6 @@ public static class AppServices
         Settings.Load();
         Queue.Load();
         Log.Load();
-        Log.AppendInfo("GetGUI demarre.");
+        Log.AppendInfo(LocalizationService.Current.AppStarted);
     }
 }

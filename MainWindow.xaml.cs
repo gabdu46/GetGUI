@@ -1,16 +1,21 @@
 using GetGUI.Services;
 using GetGUI.Views;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using WinRT.Interop;
 
 namespace GetGUI;
 
 public sealed partial class MainWindow : Window
 {
+    public LocalizationService Loc => LocalizationService.Current;
+
     public MainWindow()
     {
         InitializeComponent();
         Title = "GetGUI";
+        SetTitleBarIcon();
         Closed += MainWindow_Closed;
         ApplyTheme();
         ContentFrame.Navigate(typeof(SearchPage));
@@ -25,6 +30,19 @@ public sealed partial class MainWindow : Window
             AppTheme.Dark => ElementTheme.Dark,
             _ => ElementTheme.Default
         };
+    }
+
+    private void SetTitleBarIcon()
+    {
+        var hwnd = WindowNative.GetWindowHandle(this);
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hwnd);
+        var appWindow = AppWindow.GetFromWindowId(windowId);
+        var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "GetGUI.ico");
+
+        if (File.Exists(iconPath))
+        {
+            appWindow.SetIcon(iconPath);
+        }
     }
 
     private void ShellNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -50,7 +68,7 @@ public sealed partial class MainWindow : Window
 
     private void MainWindow_Closed(object sender, WindowEventArgs args)
     {
-        AppServices.Log.AppendInfo("GetGUI ferme.");
+        AppServices.Log.AppendInfo(LocalizationService.Current.AppClosed);
         if (AppServices.Settings.Current.ClearLogsOnExit)
         {
             AppServices.Log.Clear();

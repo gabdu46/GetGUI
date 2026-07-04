@@ -13,7 +13,7 @@ public sealed class QueueViewModel : ObservableObject
     private readonly WingetService _winget;
     private readonly SettingsService _settings;
     private bool _isInstalling;
-    private string _statusMessage = "La file est locale et peut etre exportee en JSON.";
+    private string _statusMessage = LocalizationService.Current.QueueLocalMessage;
     private string _installLog = string.Empty;
 
     public QueueViewModel(QueueService queue, WingetService winget, SettingsService settings)
@@ -58,7 +58,7 @@ public sealed class QueueViewModel : ObservableObject
     {
         if (Items.Count == 0)
         {
-            StatusMessage = "Ajoutez d'abord des applications a la file.";
+            StatusMessage = LocalizationService.Current.QueueNeedsItems;
             return;
         }
 
@@ -77,9 +77,9 @@ public sealed class QueueViewModel : ObservableObject
         try
         {
             IsInstalling = true;
-            StatusMessage = "Installation sequentielle en cours...";
+            StatusMessage = LocalizationService.Current.QueueInstalling;
             await _queue.InstallAllAsync(_winget, silent, CancellationToken.None, progress);
-            StatusMessage = "Traitement de la file termine.";
+            StatusMessage = LocalizationService.Current.QueueComplete;
         }
         catch (Exception ex)
         {
@@ -120,14 +120,14 @@ public sealed class QueueViewModel : ObservableObject
     public void Export(string path)
     {
         _queue.ExportToFile(path);
-        StatusMessage = $"File exportee vers {path}.";
+        StatusMessage = LocalizationService.Current.QueueExported(path);
     }
 
     public void Import(string path)
     {
         _queue.ImportFromFile(path);
         _queue.Save();
-        StatusMessage = $"File importee depuis {path}.";
+        StatusMessage = LocalizationService.Current.QueueImported(path);
         OnPropertyChanged(nameof(HasItems));
     }
 

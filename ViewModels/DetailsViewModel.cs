@@ -67,14 +67,14 @@ public sealed class DetailsViewModel : ObservableObject
         Application = package.Clone();
         if (string.IsNullOrWhiteSpace(Application.Id))
         {
-            StatusMessage = "Application winget invalide.";
+            StatusMessage = LocalizationService.Current.InvalidWingetApp;
             return;
         }
 
         try
         {
             IsBusy = true;
-            StatusMessage = "Chargement des details winget...";
+            StatusMessage = LocalizationService.Current.LoadingDetails;
             var originalName = Application.Name;
             var details = await _winget.ShowAsync(Application.Id, CancellationToken.None, logOutput: true);
             if (!string.IsNullOrWhiteSpace(originalName) && LooksLikePackageId(details.Name, details.Id))
@@ -83,7 +83,7 @@ public sealed class DetailsViewModel : ObservableObject
             }
 
             Application = details;
-            StatusMessage = "Details charges depuis winget.";
+            StatusMessage = LocalizationService.Current.DetailsLoaded;
         }
         catch (Exception ex)
         {
@@ -99,19 +99,19 @@ public sealed class DetailsViewModel : ObservableObject
     {
         var added = _queue.Add(Application);
         StatusMessage = added
-            ? $"{Application.Name} ajoute a la file."
-            : $"{Application.Name} est deja dans la file.";
+            ? LocalizationService.Current.AddedToQueue(Application.Name)
+            : LocalizationService.Current.AlreadyInQueue(Application.Name);
         return added;
     }
 
     public Task InstallAsync(bool silent)
     {
-        return RunPackageOperationAsync("Installation", token => _winget.InstallAsync(Application.Id, silent, token, CreateLogProgress()));
+        return RunPackageOperationAsync(LocalizationService.Current.InstallOperation, token => _winget.InstallAsync(Application.Id, silent, token, CreateLogProgress()));
     }
 
     public Task UninstallAsync()
     {
-        return RunPackageOperationAsync("Desinstallation", token => _winget.UninstallAsync(Application.Id, token, CreateLogProgress()));
+        return RunPackageOperationAsync(LocalizationService.Current.UninstallOperation, token => _winget.UninstallAsync(Application.Id, token, CreateLogProgress()));
     }
 
     private async Task RunPackageOperationAsync(string label, Func<CancellationToken, Task<ProcessResult>> operation)
@@ -120,11 +120,11 @@ public sealed class DetailsViewModel : ObservableObject
         {
             IsBusy = true;
             OperationLog = string.Empty;
-            StatusMessage = $"{label} de {Application.Name}...";
+            StatusMessage = LocalizationService.Current.OperationInProgress(label, Application.Name);
             var result = await operation(CancellationToken.None);
             StatusMessage = result.IsSuccess
-                ? $"{label} terminee."
-                : $"{label} en echec.";
+                ? LocalizationService.Current.OperationDone(label)
+                : LocalizationService.Current.OperationFailed(label);
         }
         catch (Exception ex)
         {

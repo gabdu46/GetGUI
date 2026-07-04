@@ -6,45 +6,45 @@
     <ScrollViewer>
         <StackPanel Padding="32" Spacing="22" MaxWidth="760" HorizontalAlignment="Left">
             <StackPanel Spacing="4">
-                <TextBlock Text="Parametres" FontSize="30" FontWeight="SemiBold" />
-                <TextBlock Text="Les preferences sont stockees localement." Opacity="0.72" />
+                <TextBlock Text="{x:Bind Loc.SettingsTitle, Mode=OneWay}" FontSize="30" FontWeight="SemiBold" />
+                <TextBlock Text="{x:Bind Loc.PreferencesStoredLocally, Mode=OneWay}" Opacity="0.72" />
             </StackPanel>
 
             <StackPanel Spacing="8">
-                <TextBlock Text="Theme" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock Text="{x:Bind Loc.Theme, Mode=OneWay}" FontSize="16" FontWeight="SemiBold" />
                 <ComboBox x:Name="ThemeBox" Width="260" SelectionChanged="ThemeBox_SelectionChanged">
-                    <ComboBoxItem Content="Systeme" Tag="Default" />
-                    <ComboBoxItem Content="Clair" Tag="Light" />
-                    <ComboBoxItem Content="Sombre" Tag="Dark" />
+                    <ComboBoxItem Content="{x:Bind Loc.SystemTheme, Mode=OneWay}" Tag="Default" />
+                    <ComboBoxItem Content="{x:Bind Loc.LightTheme, Mode=OneWay}" Tag="Light" />
+                    <ComboBoxItem Content="{x:Bind Loc.DarkTheme, Mode=OneWay}" Tag="Dark" />
                 </ComboBox>
             </StackPanel>
 
             <ToggleSwitch
-                Header="Installation silencieuse"
-                OffContent="winget install sans --silent"
-                OnContent="winget install --silent"
+                Header="{x:Bind Loc.SilentInstall, Mode=OneWay}"
+                OffContent="{x:Bind Loc.SilentInstallOff, Mode=OneWay}"
+                OnContent="{x:Bind Loc.SilentInstallOn, Mode=OneWay}"
                 IsOn="{x:Bind ViewModel.Settings.SilentInstall, Mode=TwoWay}"
                 Toggled="Setting_Toggled" />
 
             <ToggleSwitch
-                Header="Conserver les logs"
-                OffContent="Masquer les logs apres operations"
-                OnContent="Afficher les logs winget"
+                Header="{x:Bind Loc.KeepLogs, Mode=OneWay}"
+                OffContent="{x:Bind Loc.KeepLogsOff, Mode=OneWay}"
+                OnContent="{x:Bind Loc.KeepLogsOn, Mode=OneWay}"
                 IsOn="{x:Bind ViewModel.Settings.KeepInstallLogs, Mode=TwoWay}"
                 Toggled="Setting_Toggled" />
 
             <ToggleSwitch
-                Header="Vider les logs a la fermeture"
-                OffContent="Conserver la console entre les lancements"
-                OnContent="Effacer la console quand GetGUI se ferme"
+                Header="{x:Bind Loc.ClearLogsOnExit, Mode=OneWay}"
+                OffContent="{x:Bind Loc.ClearLogsOnExitOff, Mode=OneWay}"
+                OnContent="{x:Bind Loc.ClearLogsOnExitOn, Mode=OneWay}"
                 IsOn="{x:Bind ViewModel.Settings.ClearLogsOnExit, Mode=TwoWay}"
                 Toggled="Setting_Toggled" />
 
             <InfoBar
                 IsOpen="True"
                 Severity="Informational"
-                Title="Source des donnees"
-                Message="GetGUI interroge uniquement winget search et winget show. Aucune base applicative externe n'est utilisee." />
+                Title="{x:Bind Loc.DataSourceTitle, Mode=OneWay}"
+                Message="{x:Bind Loc.DataSourceMessage, Mode=OneWay}" />
         </StackPanel>
     </ScrollViewer>
 </Page>

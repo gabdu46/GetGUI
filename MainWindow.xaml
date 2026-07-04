@@ -6,30 +6,32 @@
     <Grid x:Name="Root" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <NavigationView
             x:Name="ShellNavigation"
-            Header="GetGUI"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             PaneDisplayMode="LeftCompact"
             SelectionChanged="ShellNavigation_SelectionChanged">
+            <NavigationView.Header>
+                <Image Source="ms-appx:///Assets/GetGUILogo.png" Width="220" Height="64" Stretch="Uniform" HorizontalAlignment="Left" />
+            </NavigationView.Header>
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Recherche" Tag="search">
+                <NavigationViewItem Content="{x:Bind Loc.NavSearch, Mode=OneWay}" Tag="search">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Find" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="File" Tag="queue">
+                <NavigationViewItem Content="{x:Bind Loc.NavQueue, Mode=OneWay}" Tag="queue">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="List" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Console" Tag="console">
+                <NavigationViewItem Content="{x:Bind Loc.NavConsole, Mode=OneWay}" Tag="console">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Document" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Parametres" Tag="settings">
+                <NavigationViewItem Content="{x:Bind Loc.NavSettings, Mode=OneWay}" Tag="settings">
                     <NavigationViewItem.Icon>
                         <SymbolIcon Symbol="Setting" />
                     </NavigationViewItem.Icon>

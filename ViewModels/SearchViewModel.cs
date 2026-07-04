@@ -16,7 +16,7 @@ public sealed class SearchViewModel : ObservableObject
     private bool _popularLoaded;
     private bool _isSearching;
     private string _query = string.Empty;
-    private string _statusMessage = "Saisissez un nom d'application, un editeur ou un ID winget.";
+    private string _statusMessage = LocalizationService.Current.SearchStartMessage;
     private string _operationLog = string.Empty;
 
     public SearchViewModel(
@@ -103,14 +103,14 @@ public sealed class SearchViewModel : ObservableObject
 
         if (Query.Length < 2)
         {
-            StatusMessage = "Entrez au moins 2 caracteres pour lancer la recherche winget.";
+            StatusMessage = LocalizationService.Current.MinimumSearchLength;
             return;
         }
 
         try
         {
             IsSearching = true;
-            StatusMessage = "Recherche winget en cours...";
+            StatusMessage = LocalizationService.Current.SearchInProgress;
             var packages = await _winget.SearchAsync(Query, cancellationToken);
 
             foreach (var package in packages)
@@ -120,8 +120,8 @@ public sealed class SearchViewModel : ObservableObject
 
             OnPropertyChanged(nameof(HasResults));
             StatusMessage = packages.Count == 0
-                ? "Aucun resultat winget pour cette recherche."
-                : $"{packages.Count} resultat(s) depuis la source winget.";
+                ? LocalizationService.Current.NoResults
+                : LocalizationService.Current.SearchResults(packages.Count);
 
             _ = EnrichVisibleResultsAsync(packages.Take(10).ToList(), cancellationToken);
         }
@@ -142,8 +142,8 @@ public sealed class SearchViewModel : ObservableObject
     {
         var added = _queue.Add(package);
         StatusMessage = added
-            ? $"{package.Name} ajoute a la file."
-            : $"{package.Name} est deja dans la file.";
+            ? LocalizationService.Current.AddedToQueue(package.Name)
+            : LocalizationService.Current.AlreadyInQueue(package.Name);
         return added;
     }
 
@@ -163,11 +163,11 @@ public sealed class SearchViewModel : ObservableObject
 
         try
         {
-            StatusMessage = $"Installation de {package.Name}...";
+            StatusMessage = LocalizationService.Current.Installing(package.Name);
             var result = await _winget.InstallAsync(package.Id, silent, CancellationToken.None, progress);
             StatusMessage = result.IsSuccess
-                ? $"{package.Name} installe."
-                : $"Echec de l'installation de {package.Name}.";
+                ? LocalizationService.Current.Installed(package.Name)
+                : LocalizationService.Current.InstallFailed(package.Name);
         }
         catch (Exception ex)
         {
@@ -218,7 +218,7 @@ public sealed class SearchViewModel : ObservableObject
         {
             if (string.IsNullOrWhiteSpace(Query))
             {
-                StatusMessage = "Mise a jour rapide des details populaires...";
+                StatusMessage = LocalizationService.Current.PopularRefreshMessage;
             }
 
             await EnrichPopularPackagesAsync(packages);
@@ -226,14 +226,14 @@ public sealed class SearchViewModel : ObservableObject
 
             if (string.IsNullOrWhiteSpace(Query))
             {
-                StatusMessage = "Saisissez un nom d'application, un editeur ou un ID winget.";
+                StatusMessage = LocalizationService.Current.SearchStartMessage;
             }
         }
         catch
         {
             if (string.IsNullOrWhiteSpace(Query))
             {
-                StatusMessage = "Saisissez un nom d'application, un editeur ou un ID winget.";
+                StatusMessage = LocalizationService.Current.SearchStartMessage;
             }
         }
     }

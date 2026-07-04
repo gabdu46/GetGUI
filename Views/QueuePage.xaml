@@ -3,17 +3,19 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:GetGUI.Converters"
-    xmlns:models="using:GetGUI.Models">
+    xmlns:models="using:GetGUI.Models"
+    xmlns:services="using:GetGUI.Services">
 
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <converters:StatusToBrushConverter x:Key="StatusToBrushConverter" />
+        <services:LocalizationService x:Key="LocResource" />
     </Page.Resources>
 
     <Grid Padding="32" RowDefinitions="Auto,Auto,*">
         <Grid ColumnDefinitions="*,Auto">
             <StackPanel Spacing="4">
-                <TextBlock Text="File d'installation" FontSize="30" FontWeight="SemiBold" />
+                <TextBlock Text="{x:Bind Loc.QueueTitle, Mode=OneWay}" FontSize="30" FontWeight="SemiBold" />
                 <TextBlock
                     Text="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
                     Opacity="0.72"
@@ -21,9 +23,9 @@
             </StackPanel>
 
             <CommandBar Grid.Column="1" DefaultLabelPosition="Right">
-                <AppBarButton Icon="Play" Label="Installer tout" Click="InstallAllButton_Click" />
-                <AppBarButton Icon="Import" Label="Importer" Click="ImportButton_Click" />
-                <AppBarButton Icon="Save" Label="Exporter" Click="ExportButton_Click" />
+                <AppBarButton Icon="Play" Label="{x:Bind Loc.InstallAll, Mode=OneWay}" Click="InstallAllButton_Click" />
+                <AppBarButton Icon="Import" Label="{x:Bind Loc.Import, Mode=OneWay}" Click="ImportButton_Click" />
+                <AppBarButton Icon="Save" Label="{x:Bind Loc.Export, Mode=OneWay}" Click="ExportButton_Click" />
             </CommandBar>
         </Grid>
 
@@ -90,28 +92,28 @@
                                         Grid.Column="2"
                                         Click="MoveUpButton_Click"
                                         Tag="{x:Bind}"
-                                        ToolTipService.ToolTip="Monter">
+                                        ToolTipService.ToolTip="{Binding MoveUp, Source={StaticResource LocResource}}">
                                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE74A;" />
                                     </Button>
                                     <Button
                                         Grid.Column="3"
                                         Click="MoveDownButton_Click"
                                         Tag="{x:Bind}"
-                                        ToolTipService.ToolTip="Descendre">
+                                        ToolTipService.ToolTip="{Binding MoveDown, Source={StaticResource LocResource}}">
                                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE74B;" />
                                     </Button>
                                     <Button
                                         Grid.Column="4"
                                         Click="RetryButton_Click"
                                         Tag="{x:Bind}"
-                                        ToolTipService.ToolTip="Reessayer">
+                                        ToolTipService.ToolTip="{Binding Retry, Source={StaticResource LocResource}}">
                                         <SymbolIcon Symbol="Refresh" />
                                     </Button>
                                     <Button
                                         Grid.Column="5"
                                         Click="RemoveButton_Click"
                                         Tag="{x:Bind}"
-                                        ToolTipService.ToolTip="Supprimer">
+                                        ToolTipService.ToolTip="{Binding Remove, Source={StaticResource LocResource}}">
                                         <SymbolIcon Symbol="Delete" />
                                     </Button>
                                 </Grid>
@@ -128,7 +130,7 @@
                     FontFamily="Consolas"
                     IsReadOnly="True"
                     MinHeight="170"
-                    PlaceholderText="Les logs winget apparaitront ici pendant les installations."
+                    PlaceholderText="{x:Bind Loc.QueueLogsPlaceholder, Mode=OneWay}"
                     TextWrapping="NoWrap"
                     Visibility="{x:Bind ViewModel.HasLog, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Grid>
@@ -139,8 +141,8 @@
                 Spacing="8"
                 Visibility="{x:Bind ViewModel.HasItems, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}">
                 <SymbolIcon Symbol="List" />
-                <TextBlock Text="La file est vide." FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" />
-                <TextBlock Text="Ajoutez des applications depuis la recherche." Opacity="0.72" HorizontalAlignment="Center" />
+                <TextBlock Text="{x:Bind Loc.EmptyQueue, Mode=OneWay}" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                <TextBlock Text="{x:Bind Loc.AddAppsFromSearch, Mode=OneWay}" Opacity="0.72" HorizontalAlignment="Center" />
             </StackPanel>
         </Grid>
     </Grid>

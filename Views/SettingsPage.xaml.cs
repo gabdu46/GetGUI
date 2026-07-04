@@ -7,6 +7,8 @@ namespace GetGUI.Views;
 
 public sealed partial class SettingsPage : Page
 {
+    public LocalizationService Loc => LocalizationService.Current;
+
     public SettingsPage()
     {
         ViewModel = new SettingsViewModel(AppServices.Settings);

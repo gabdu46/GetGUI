@@ -1,4 +1,5 @@
 using GetGUI.Infrastructure;
+using GetGUI.Services;
 
 namespace GetGUI.Models;
 
@@ -34,10 +35,10 @@ public sealed class QueueItem : ObservableObject
 
     public string StatusText => Status switch
     {
-        QueueItemStatus.Pending => "En attente",
-        QueueItemStatus.Installing => "Installation",
-        QueueItemStatus.Success => "Installee",
-        QueueItemStatus.Failed => "Echec",
-        _ => "Inconnu"
+        QueueItemStatus.Pending => LocalizationService.Current.StatusPending,
+        QueueItemStatus.Installing => LocalizationService.Current.StatusInstalling,
+        QueueItemStatus.Success => LocalizationService.Current.StatusSuccess,
+        QueueItemStatus.Failed => LocalizationService.Current.StatusFailed,
+        _ => LocalizationService.Current.StatusUnknown
     };
 }

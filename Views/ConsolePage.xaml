@@ -6,7 +6,7 @@
     <Grid Padding="32" RowDefinitions="Auto,Auto,*">
         <Grid ColumnDefinitions="*,Auto">
             <StackPanel Spacing="4">
-                <TextBlock Text="Console" FontSize="30" FontWeight="SemiBold" />
+                <TextBlock Text="{x:Bind Loc.ConsoleTitle, Mode=OneWay}" FontSize="30" FontWeight="SemiBold" />
                 <TextBlock
                     Text="{x:Bind ViewModel.LogPath, Mode=OneWay}"
                     Opacity="0.72"
@@ -14,8 +14,8 @@
             </StackPanel>
 
             <CommandBar Grid.Column="1" DefaultLabelPosition="Right">
-                <AppBarButton Icon="Refresh" Label="Actualiser" Click="RefreshButton_Click" />
-                <AppBarButton Icon="Delete" Label="Effacer" Click="ClearButton_Click" />
+                <AppBarButton Icon="Refresh" Label="{x:Bind Loc.Refresh, Mode=OneWay}" Click="RefreshButton_Click" />
+                <AppBarButton Icon="Delete" Label="{x:Bind Loc.Clear, Mode=OneWay}" Click="ClearButton_Click" />
             </CommandBar>
         </Grid>
 
@@ -24,7 +24,7 @@
             Margin="0,12,0,14"
             IsOpen="True"
             Severity="Informational"
-            Message="Les logs sont conserves entre les lancements, sauf si l'option de vidage a la fermeture est activee." />
+            Message="{x:Bind Loc.ConsoleInfo, Mode=OneWay}" />
 
         <TextBox
             x:Name="LogBox"

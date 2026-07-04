@@ -9,6 +9,8 @@ namespace GetGUI.Views;
 
 public sealed partial class DetailsPage : Page
 {
+    public LocalizationService Loc => LocalizationService.Current;
+
     public DetailsPage()
     {
         ViewModel = new DetailsViewModel(AppServices.Winget, AppServices.Queue, AppServices.Settings);
@@ -49,10 +51,10 @@ public sealed partial class DetailsPage : Page
     {
         var dialog = new ContentDialog
         {
-            Title = "Desinstaller l'application ?",
+            Title = Loc.UninstallDialogTitle,
             Content = ViewModel.Application.Name,
-            PrimaryButtonText = "Desinstaller",
-            CloseButtonText = "Annuler",
+            PrimaryButtonText = Loc.UninstallDialogPrimary,
+            CloseButtonText = Loc.Cancel,
             XamlRoot = XamlRoot
         };
 

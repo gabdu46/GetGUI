@@ -10,6 +10,8 @@ namespace GetGUI.Views;
 
 public sealed partial class QueuePage : Page
 {
+    public LocalizationService Loc => LocalizationService.Current;
+
     public QueuePage()
     {
         ViewModel = new QueueViewModel(AppServices.Queue, AppServices.Winget, AppServices.Settings);
